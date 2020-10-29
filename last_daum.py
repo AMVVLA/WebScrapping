@@ -15,7 +15,8 @@ def get_news(href_list):
     soup = BeautifulSoup(response.text, 'html.parser')
     news = soup.find('div', class_='article_view')
     news = news.get_text().replace('\n', '').replace('\t', '').replace('\xa0', ' ')
-    # news = re.sub(r'\[\w*\s*]|\(.*\)|<.+>|[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+|"|“|\'|.|기자', '', news)
+    #[ ] < > ( ) 안의 내용, email " , ' 기자 제거
+    news = re.sub(r'\[[^\]]*\]|\([^\)]*\)|\<[^\>]*\>|[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+|"|,|\'|기자', '', news)
     return news
 
 
